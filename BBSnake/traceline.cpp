@@ -3,6 +3,12 @@
 
 using std::pair;
 
+// на момент 10.05.2022 года считаю инициализацию Traceline некорректной(а может и нет), по причине необходимости
+// передавать точку destination для просчёта TraceLine
+// Возможно было бы правильным решением передавать направление Directin обьекта, для которого идет просчёт Traceline
+// Далее получить от класса ANcontainer контейнеры обьектов и в зависимости от направления выбирать точку destination самостоятельно.
+// После чего проводить с ней расчёт
+
 Traceline::Traceline(Point& in_origin, Point& in_destination):origin{in_origin},destination{in_destination}{
 
     unsigned int deltax = abs(destination.GetPointX() - origin.GetPointX());

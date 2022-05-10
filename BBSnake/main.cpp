@@ -64,9 +64,9 @@ int main(void)
                 break;
             case 's' :  dir = Direction::DOWN;
         }
-
-     snake.Move(dir, 1, display);
+     snake.Move(dir, 1);
      display.DrawFigure(snake);
+     snake.ClearAfterMove();
     }
 
 

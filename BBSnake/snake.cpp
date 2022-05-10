@@ -18,10 +18,10 @@ start{start}, length{length}, dir{dir}, head_style{head_style}, body_style{body_
     col = nullptr;
 }
 
-void Snake::Move(const Direction& dir, unsigned int offset, Display& d) {
+void Snake::Move(const Direction& dir, unsigned int offset) {
     this->GetFigureList().front().Delete();
-    d.DrawPoint(this->GetFigureList().front());
-    this->GetFigureList().pop_front();
+     //d.DrawPoint(this->GetFigureList().front());
+    //this->GetFigureList().pop_front();
 
     Point head(this->GetFigureList().back());
     Point new_head(this->GetFigureList().back());
@@ -35,4 +35,9 @@ void Snake::Move(const Direction& dir, unsigned int offset, Display& d) {
 
 
     this->GetFigureList().push_back(new_head);
+}
+
+//костыль удаления(очистки List с точками snake). Причина создания - некорректная отрисовка обьекта после вызова функции DrawFigure класса Display
+void Snake::ClearAfterMove(){
+    GetFigureList().pop_front();
 }
