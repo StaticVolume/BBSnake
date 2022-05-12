@@ -2,7 +2,7 @@
 
 #include "figure.h"
 #include "point.h"
-
+#include "ancontainer.h"
 
 class Vwall : public Figure{
 
@@ -15,5 +15,6 @@ class Vwall : public Figure{
 public:
 
     Vwall(unsigned int in_start_y, unsigned int in_last_y, unsigned int in_w_x, char in_w_style = '#');
+    ~Vwall(){};
 };
 

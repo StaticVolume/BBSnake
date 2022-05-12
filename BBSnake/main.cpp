@@ -31,13 +31,14 @@ int main(void)
     Point g(100,20);
     Point v(100,40);
 
-    Snake snake(Point(5,15),10,Direction::RIGTH,'D','*');
+    Snake snake(Point(5,15),10,Direction::RIGTH,'*','*');
 
     Traceline trace(p,g);
     Traceline tr(g,v);
 
     trace.CalculateTraceLine();
     tr.CalculateTraceLine();
+
 
     display.DrawFigure(wall1);
     display.DrawFigure(wall2);
@@ -72,5 +73,6 @@ int main(void)
 
 
     display.Stop(getch());
+
     return 0;
 }

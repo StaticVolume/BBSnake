@@ -5,4 +5,6 @@ Vwall::Vwall(unsigned int in_start_y, unsigned int in_last_y, unsigned int in_w_
         for(unsigned int y = start_y; y<last_y; ++y){
             GetFigureList().push_back(Point(w_x, y, w_style));
         }
+        ANContainer::GetInstance()->AddToContainer(*this);
+        Figure::SetId();
 }

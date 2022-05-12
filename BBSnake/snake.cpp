@@ -15,7 +15,9 @@ start{start}, length{length}, dir{dir}, head_style{head_style}, body_style{body_
           this->GetFigureList().push_back(p);
 
     }
-    col = nullptr;
+
+   ANContainer::GetInstance()->AddToContainer(*this);
+   Figure::SetId();
 }
 
 void Snake::Move(const Direction& dir, unsigned int offset) {

@@ -4,14 +4,14 @@ Point::Point():x{0},y{0},style{'*'}{}
 
 Point::Point(int in_x, int in_y, char in_style,  Color in_color): x{in_x},y{in_y}, style{in_style}, p_color{in_color} {}
 
-bool Point::operator!=(const Point& in_point) {
-
-    return (  (x == in_point.x  ) || (y == in_point.y) ||(style == in_point.style)  );
-}
-
 bool Point::operator==(const Point& in_point) {
 
-    return !(  (x != in_point.GetPointX()  ) ||(y != in_point.GetPointY()) || (style != in_point.GetPointStyle())  );
+    return (  (x == in_point.x) && (y == in_point.y)   );
+}
+
+bool Point::operator!=(const Point& in_point) {
+
+    return !(*this == in_point);
 }
 
 Point& Point::operator=(const Point& in_point) {

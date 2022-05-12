@@ -4,5 +4,10 @@ Hwall::Hwall(unsigned int in_start_x, unsigned int in_last_x, unsigned int in_w_
         for(unsigned int x = start_x; x <= last_x; ++x){
             GetFigureList().push_back(Point(x, w_y, w_style));
         }
+    ANContainer::GetInstance()->AddToContainer(*this);
+    SetId();
 }
 
+Hwall::~Hwall(){
+ ANContainer::GetInstance()->RemoveFromContainer(*this);
+}

@@ -2,6 +2,7 @@
 
 #include "figure.h"
 #include "point.h"
+#include "ancontainer.h"
 
 class Eat : public Figure{
 

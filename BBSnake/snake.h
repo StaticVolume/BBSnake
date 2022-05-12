@@ -11,7 +11,7 @@
 class Snake: public Figure{
 
 private:
-    Traceline trace;
+   // Traceline trace;
     Direction dir;
     Point start;
     Color head_color, body_color;
@@ -27,5 +27,6 @@ public:
     void Eat(ANContainer& figurs, bool is_interactive = true);
     void ClearAfterMove();
 
+    ~Snake(){};
 };
 

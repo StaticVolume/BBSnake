@@ -2,19 +2,27 @@
 
 #include "vector"
 #include "figure.h"
+#include <iostream>
 
 
-
-class ANContainer{
+class ANContainer {
 
 private:
 
-    std::vector<Figure>not_interactive;
-    std::vector<Figure>interactive;
+    ANContainer() {};
+
+   static ANContainer* containerInstance;
+   std::vector<Figure> not_interactive;
+   std::vector<Figure> interactive;
+
 
 public:
 
-    ANContainer() = default;
+    static ANContainer* GetInstance();
+
+    ANContainer( const ANContainer& ancontainer ) = delete;
+    ANContainer& operator=( const ANContainer& ancotainer ) = delete;
+
 
     inline std::vector<Figure>& GetNotInteractive(){ return not_interactive; };
     inline std::vector<Figure>& GetInteractive(){ return interactive; };
