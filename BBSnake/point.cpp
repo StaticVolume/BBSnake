@@ -17,11 +17,19 @@ bool Point::operator!=(const Point& in_point) {
 Point& Point::operator=(const Point& in_point) {
 
     if (this != &in_point) {
-
-        this->SetPointX(in_point.GetPointX());
-        this->SetPointY(in_point.GetPointY());
-        this->SetPointStyle(in_point.GetPointStyle());
+        x = in_point.GetPointX();
+        y = in_point.GetPointY();
+        style = in_point.GetPointStyle();
+        p_color = in_point.GetPointColor();
     }
+    return *this;
+}
+
+Point& Point::operator=(const int number) {
+    x = number;
+    y = number;
+    style = '\0';
+
     return *this;
 }
 
@@ -38,12 +46,12 @@ void Point::SetPointStyle(char in_style) {
     style = in_style;
 }
 
-void Point::SetPointX(int in_x){
+void Point::SetPointX(int in_x) {
 
     x = in_x;
 }
 
-void Point::SetPointY(int in_y){
+void Point::SetPointY(int in_y) {
 
     y = in_y;
 }
@@ -56,7 +64,11 @@ void Point::Delete(){
     style  = ' ';
 }
 
-void Point::Move(const Direction& dir, unsigned int in_offset){
+bool Point::isEmty(void) {
+ return ( (x == 0) && (y == 0) && (style == '\0') );
+}
+
+void Point::Move(const Direction& dir, unsigned int in_offset) {
 
     switch (dir) {
     case Direction::RIGTH : x+= in_offset;
@@ -72,7 +84,7 @@ void Point::Move(const Direction& dir, unsigned int in_offset){
     }
 }
 
-bool Point::isHit(const Point& in_point){
+bool Point::isHit(const Point& in_point) {
     bool ishit = ((x == in_point.GetPointX()) && (y == in_point.GetPointY())) ? true : false;
     return ishit;
 }
