@@ -17,27 +17,27 @@ using namespace std;
 int main(void)
 {
     Direction dir;
-    Color point_color = Color::GREEN;
-    Color trace_color = Color::YELLOW;
-    Color wall_color = Color::WHITE;
+   // Color point_color = Color::GREEN;
+    //Color trace_color = Color::YELLOW;
+    //Color wall_color = Color::WHITE;
     Display display;
 
     Hwall wall1(0,display.GetDisplayWidth()-1, 0 ,'#');
     Hwall wall2(0,display.GetDisplayWidth()-1, display.GetDisplayHeigth()-1,'#');
     Vwall wall3(0,display.GetDisplayHeigth()-1,0,'#');
     Vwall wall4(0,display.GetDisplayHeigth()-1,display.GetDisplayWidth()-1,'#');
+    //Vwall wall4(0,50,200,'#');
 
     Point p(100,10);
     Point g(100,20);
     Point v(100,40);
 
-    Snake snake(Point(5,15),10,Direction::RIGTH,'*','*');
+    Snake snake(Point(5,10),10,Direction::RIGTH,'*','*');
+    //Traceline trace(p,g);
+    //Traceline tr(g,v);
 
-    Traceline trace(p,g);
-    Traceline tr(g,v);
-
-    trace.CalculateTraceLine();
-    tr.CalculateTraceLine();
+    //trace.CalculateTraceLine();
+    //tr.CalculateTraceLine();
 
 
     display.DrawFigure(wall1);
@@ -48,10 +48,11 @@ int main(void)
     display.DrawPoint(p);
     display.DrawPoint(g);
 
-    display.DrawFigure(trace);
-    display.DrawFigure(tr);
+    //display.DrawFigure(trace);
+    //display.DrawFigure(tr);
 
     display.DrawFigure(snake);
+    display.DrawFigure(snake.GetTrace());
 
 
     while(true){
@@ -65,8 +66,11 @@ int main(void)
                 break;
             case 's' :  dir = Direction::DOWN;
         }
+     snake.ClearAfterMoveTraceLine(display);
      snake.Move(dir, 1);
      display.DrawFigure(snake);
+     snake.GetTraceLine().CalculateTraceLine();
+     display.DrawFigure(snake.GetTrace());
      snake.ClearAfterMove();
     }
 

@@ -16,7 +16,6 @@ public:
     Point();
     Point(int in_x, int in_y, char in_style = '*', Color in_color = Color::WHITE);
     Point& operator=(const Point& in_point);
-    Point& operator=(const int number);
     bool operator!=(const Point& in_point);
     bool operator ==(const Point& in_point);
     Point& operator-(const Point& in_point);
@@ -31,7 +30,7 @@ public:
     inline char GetPointStyle()const { return style; }
     void SetPointStyle(char in_style);
 
-    bool isEmty(void);
+
     void Move(const Direction& dir, unsigned int offset = 1);
     void Delete(void);
     bool isHit(const Point& in_point);

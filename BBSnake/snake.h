@@ -11,22 +11,26 @@
 class Snake: public Figure{
 
 private:
-   // Traceline trace;
+    Traceline trace;
     Direction dir;
-    Point start;
+    Point start, head;
     Color head_color, body_color;
     char head_style, body_style;
     unsigned int speed,length;
 
 public:
 
-    Snake(const Point start, unsigned int length, const Direction dir, char head_style = '@', char body_style= '*', Color body_color = Color::YELLOW,
+    Snake(const Point& start, unsigned int length, const Direction& dir, char head_style = '@', char body_style= '*', Color body_color = Color::YELLOW,
     Color head_color = Color::GREEN);
+
+
+    Traceline GetTraceLine()  {return trace;}
+    Figure& GetTrace()  {return trace;}
 
     void Move(const Direction& dir, unsigned int offset);
     void Eat(ANContainer& figurs, bool is_interactive = true);
     void ClearAfterMove();
-
+    void ClearAfterMoveTraceLine(Display& d);
     ~Snake(){};
 };
 
