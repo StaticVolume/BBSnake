@@ -11,49 +11,30 @@
 #include "display.h"
 #include <chrono>
 #include <thread>
-
+#include <string.h>
 using namespace std;
 
 int main(void)
 {
     Direction dir;
-   // Color point_color = Color::GREEN;
-    //Color trace_color = Color::YELLOW;
-    //Color wall_color = Color::WHITE;
+    bool ishit = false;
+
     Display display;
 
     Hwall wall1(0,display.GetDisplayWidth()-1, 0 ,'#');
     Hwall wall2(0,display.GetDisplayWidth()-1, display.GetDisplayHeigth()-1,'#');
     Vwall wall3(0,display.GetDisplayHeigth()-1,0,'#');
     Vwall wall4(0,display.GetDisplayHeigth()-1,display.GetDisplayWidth()-1,'#');
-    //Vwall wall4(0,50,200,'#');
-
-    Point p(100,10);
-    Point g(100,20);
-    Point v(100,40);
-
-    Snake snake(Point(5,10),10,Direction::RIGTH,'*','*');
-    //Traceline trace(p,g);
-    //Traceline tr(g,v);
-
-    //trace.CalculateTraceLine();
-    //tr.CalculateTraceLine();
-
+    Vwall wall5(0,20,200,'#');
 
     display.DrawFigure(wall1);
     display.DrawFigure(wall2);
     display.DrawFigure(wall3);
     display.DrawFigure(wall4);
+    display.DrawFigure(wall5);
 
-    display.DrawPoint(p);
-    display.DrawPoint(g);
-
-    //display.DrawFigure(trace);
-    //display.DrawFigure(tr);
-
+    Snake snake(Point(1,10),10,Direction::RIGTH,'*','*');
     display.DrawFigure(snake);
-    display.DrawFigure(snake.GetTrace());
-
 
     while(true){
 
@@ -66,17 +47,37 @@ int main(void)
                 break;
             case 's' :  dir = Direction::DOWN;
         }
+
+
+
      snake.ClearAfterMoveTraceLine(display);
-     snake.Move(dir, 1);
-     display.DrawFigure(snake);
-     snake.GetTraceLine().CalculateTraceLine();
-     display.DrawFigure(snake.GetTrace());
-     snake.ClearAfterMove();
-    }
+     snake.GetTraceLine().CalculateTraceLineWhithDirection(snake.GetTraceLine().GetOrigin(), dir);
+     bool ishit = snake.IsHitByPoints( snake.GetTraceLine().GetOrigin(), snake.GetTraceLine().GetDestination(), dir ) ;
+
+        if(ishit) {
+            for(int x = 0 ; x < snake.GetFigureList().size(); ++x){
+                snake.Move_Back__By_Hit(dir);
+                snake.GetTraceLine().BuildTrace();
+                display.DrawFigure(snake.GetTrace());
+                display.DrawFigure(snake);
+                snake.ClearAfterMove();
+            }
+
+        } else {
+            snake.Move(dir, 1);
+            snake.GetTraceLine().BuildTrace();
+            display.DrawFigure(snake.GetTrace());
+            display.DrawFigure(snake);
+            snake.ClearAfterMove();
+
+        }
 
 
+
+
+
+  }
 
     display.Stop(getch());
-
     return 0;
 }

@@ -2,7 +2,7 @@
 
 
 
-enum class Direction{
+enum class Direction {
 
     RIGTH,
     LEFT,

@@ -16,11 +16,11 @@ bool Point::operator!=(const Point& in_point) {
 
 Point& Point::operator=(const Point& in_point) {
 
-    if (this != &in_point) {
-
-        this->SetPointX(in_point.GetPointX());
-        this->SetPointY(in_point.GetPointY());
-        this->SetPointStyle(in_point.GetPointStyle());
+    if (*this != in_point) {
+        x = in_point.GetPointX();
+        y = in_point.GetPointY();
+        style = in_point.GetPointStyle();
+        p_color = in_point.GetPointColor();
     }
     return *this;
 }

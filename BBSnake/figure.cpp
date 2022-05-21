@@ -1,6 +1,6 @@
 #include "figure.h"
 
- unsigned int Figure::id = 0;
+ unsigned int Figure::id_all_figures = 0;
 
  bool Figure::operator==( Figure& in_figure) {
      bool is_true = true;
@@ -26,21 +26,25 @@
  }
 
 void Figure::FMove(const Direction& dir, unsigned int offset) {
-     for(auto point : pList){
+     for(auto point : pList) {
         point.Move(dir,offset);
      }
 }
 
-bool Figure::FisHit(Figure& in_figure){
-     for (auto point : pList){
+bool Figure::IsHit(Figure& in_figure) {
+     for (auto point : pList) {
         for (auto in_point : in_figure.GetFigureList()) {
-            if( point.isHit(in_point) ){
+            if( point.isHit(in_point) ) {
                 return true;
             }
         }
     }
      return false;
 }
-void Figure::SetId(){
-    ++id;
+
+void Figure::SetId() {
+    ++id_all_figures;
 }
+
+
+

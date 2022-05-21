@@ -3,8 +3,9 @@
 #include "figure.h"
 #include "point.h"
 #include "ancontainer.h"
+#include "non_active_figure.h"
 
-class Vwall : public Figure{
+class Vwall : public NonActiveFigure{
 
     private:
     unsigned int start_y;

@@ -13,45 +13,80 @@ start{start}, length{length},dir{dir}, head_style{head_style}, body_style{body_s
           }
           p.Move(dir);
           head = p;
-          this->GetFigureList().push_back(p);
-
+          GetFigureList().push_back(p);
     }
 
-   trace.SetOrigin(head);
-   trace.CalculateTraceLineWhithDirection(trace.GetOrigin(),dir);
+   GetTraceLine().SetOrigin(head);
+   GetTraceLine().CalculateTraceLineWhithDirection(GetTraceLine().GetOrigin(),dir);
 
-   ANContainer::GetInstance()->AddToContainer(*this);
-   Figure::SetId();
+
+
 }
+
+
 
 void Snake::Move(const Direction& dir, unsigned int offset) {
+
     this->GetFigureList().front().Delete();
 
-    Point head(this->GetFigureList().back());
+    Point old_head(this->GetFigureList().back());
     Point new_head(this->GetFigureList().back());
 
-    head.SetPointStyle(body_style);
-    head.SetPointColor(body_color);
+    old_head.SetPointStyle(body_style);
+    old_head.SetPointColor(body_color);
 
     this->GetFigureList().pop_back();
-    this->GetFigureList().push_back(head);
+    this->GetFigureList().push_back(old_head);
 
-    new_head.Move(dir,1);
+    new_head.Move(dir, 1);
 
-    this->head = new_head;
+    head = new_head;
     this->GetFigureList().push_back(new_head);
 
-    trace.SetOrigin(GetFigureList().back());
-    trace.CalculateTraceLineWhithDirection(trace.GetOrigin(),dir);
+    GetTraceLine().SetOrigin(head);
+    GetTraceLine().CalculateTraceLineWhithDirection(GetTraceLine().GetOrigin(),dir);
 
 }
+
+void Snake::Move_Back__By_Hit(Direction &dir) {
+
+        switch (dir){
+
+        case Direction::RIGTH :
+
+            Move(Direction::LEFT, 1);
+
+                break;
+
+        case Direction::LEFT :
+
+            Move(Direction::RIGTH, 1);
+
+                break;
+
+        case Direction::UP :
+
+            Move(Direction::DOWN, 1);
+
+                break;
+
+        case Direction::DOWN :
+
+            Move(Direction::UP, 1);
+
+                break;
+        }
+}
+
 
 //костыль удаления(очистки List с точками snake). Причина создания - некорректная отрисовка обьекта после вызова функции DrawFigure класса Display
 void Snake::ClearAfterMoveTraceLine(Display& d){
-    trace.ClearAfterMove();
-    d.DrawFigure(trace);
-    trace.GetFigureList().clear();
+    GetTraceLine().ClearAfterMove();
+    d.DrawFigure(GetTrace());
+    GetTraceLine().GetFigureList().clear();
 }
 void Snake::ClearAfterMove(){
      GetFigureList().pop_front();
+
+
 }

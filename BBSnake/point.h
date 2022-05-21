@@ -22,7 +22,7 @@ public:
 
     inline int GetPointX()const { return x; }
     inline int GetPointY()const { return y; }
-    inline Color GetPointColor()const { return p_color; };
+    inline Color GetPointColor()const { return p_color; }
     void SetPointX(int in_x);
     void SetPointY(int in_y);
     void SetPointColor(Color& in_color);
