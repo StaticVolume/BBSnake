@@ -4,15 +4,18 @@
 #include "point.h"
 #include "ancontainer.h"
 #include "active_figure.h"
+#include "display.h"
 
 class Eat : public ActiveFigure {
 
 private:
 
-    Point food;
+    Point* food = nullptr;
 
 public:
 
-    Eat(int in_x, int in_y, char in_style = '$');
-    Eat(Point& in_food);
+    Eat(unsigned int w_width, unsigned int w_heigth, char in_style = '$', Color in_color = Color::YELLOW);
+    Point* GetFood() {return food;};
+    void SetFood(Point& point);
+    ~Eat() { delete food; }
 };

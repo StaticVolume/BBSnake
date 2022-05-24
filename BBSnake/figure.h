@@ -12,6 +12,7 @@ private:
 
     static unsigned int id_all_figures;
     std::list<Point> pList;
+    Color color;
 
 protected:
 
@@ -19,7 +20,7 @@ protected:
 
 public:
 
-    Figure(){ ++id_all_figures; }
+    Figure(Color color = Color::WHITE){ ++id_all_figures; }
     virtual ~Figure() = default;
 
     bool operator==(Figure& in_figure);

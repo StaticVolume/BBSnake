@@ -11,6 +11,8 @@ Display::Display(bool in_curs_check , char in_exit ): curs_check{in_curs_check},
      init_pair(Color::GREEN,COLOR_GREEN,COLOR_BLACK);
      init_pair(Color::RED,COLOR_RED,COLOR_BLACK);
      init_pair(Color::YELLOW,COLOR_YELLOW,COLOR_BLACK);
+     init_pair(Color::CYAN,COLOR_CYAN, COLOR_BLACK);
+     init_pair(Color::MAGENTA,COLOR_MAGENTA, COLOR_BLACK);
 
      noecho();
      curs_set(curs_check);

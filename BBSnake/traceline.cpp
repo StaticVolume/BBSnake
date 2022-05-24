@@ -20,11 +20,16 @@ void  Traceline::SetIsHit(bool ishit) {
 }
 
 void Traceline::CalculateTraceLineWhithDirection(const Point& origin,const Direction& dir) {
+
     int numbers_of_point = 0;
+
     int length_to_point = 0;
+
+   // std::vector<Figure*> v;
 
     switch(dir){
     case Direction::RIGTH : {
+
             for(auto figure : ANContainer::GetInstance()->GetNotInteractive()) {
 
                 for(auto& point : figure->GetFigureList()){
@@ -45,9 +50,35 @@ void Traceline::CalculateTraceLineWhithDirection(const Point& origin,const Direc
                     }
                 }
             }
+
+         if (ANContainer::GetInstance()->GetInteractive().size() > 0) {
+
+            for(auto figure : ANContainer::GetInstance()->GetInteractive()) {
+
+                for(auto& point : figure->GetFigureList()){
+
+                    if(  (origin.GetPointY() == point.GetPointY()) && (point.GetPointX() > origin.GetPointX())  ) {
+
+                        ++numbers_of_point;
+
+                        if(  (numbers_of_point > 1) && (length_to_point > (point.GetPointX() - origin.GetPointX()))  ) {
+
+                                length_to_point = point.GetPointX() - origin.GetPointX();
+                                 destination = point;
+                        } else {
+
+                            length_to_point = point.GetPointX() - origin.GetPointX();
+                            destination = point;
+                        }
+                    }
+                }
+            }
+        }
+
         }break;
 
     case Direction::LEFT : {
+
         for(auto figure : ANContainer::GetInstance()->GetNotInteractive()) {
 
             for(auto point : figure->GetFigureList()) {
@@ -70,9 +101,36 @@ void Traceline::CalculateTraceLineWhithDirection(const Point& origin,const Direc
                 }
             }
         }
+
+     if (ANContainer::GetInstance()->GetInteractive().size() > 0) {
+
+        for(auto figure : ANContainer::GetInstance()->GetInteractive()) {
+
+            for(auto point : figure->GetFigureList()) {
+
+                if(  (origin.GetPointY() == point.GetPointY()) && (origin.GetPointX() > point.GetPointX())  ) {
+
+                    ++numbers_of_point;
+
+                    if(  (numbers_of_point > 1) && (length_to_point > (origin.GetPointX() - point.GetPointX()))  ) {
+
+                            length_to_point = origin.GetPointX() - point.GetPointX();
+                             destination = point;
+
+                    } else {
+
+                        length_to_point = origin.GetPointX() - point.GetPointX();
+                         destination = point;
+                    }
+
+                }
+            }
+          }
+       }
         }break;
 
     case Direction::UP : {
+
         for(auto figure : ANContainer::GetInstance()->GetNotInteractive()) {
 
             for(auto point : figure->GetFigureList()) {
@@ -95,9 +153,36 @@ void Traceline::CalculateTraceLineWhithDirection(const Point& origin,const Direc
                 }
             }
         }
+
+      if (ANContainer::GetInstance()->GetInteractive().size() > 0) {
+
+        for(auto figure : ANContainer::GetInstance()->GetInteractive()) {
+
+            for(auto point : figure->GetFigureList()) {
+
+                if(  (origin.GetPointX() == point.GetPointX()) && (origin.GetPointY() > point.GetPointY())  ) {
+
+                    ++numbers_of_point;
+
+                    if(  (numbers_of_point > 1) && (length_to_point > (origin.GetPointY() - point.GetPointY()))  ) {
+
+                            length_to_point = origin.GetPointY() - point.GetPointY();
+                             destination = point;
+
+                    } else {
+
+                        length_to_point = origin.GetPointY() - point.GetPointY();
+                         destination = point;
+                    }
+
+                }
+            }
+         }
+       }
         }break;
 
     case Direction::DOWN : {
+
         for(auto figure : ANContainer::GetInstance()->GetNotInteractive()) {
 
             for(auto point : figure->GetFigureList()) {
@@ -119,6 +204,31 @@ void Traceline::CalculateTraceLineWhithDirection(const Point& origin,const Direc
                 }
             }
         }
+
+      if (ANContainer::GetInstance()->GetInteractive().size() > 0) {
+
+        for(auto figure : ANContainer::GetInstance()->GetInteractive()) {
+
+            for(auto point : figure->GetFigureList()) {
+
+                if(  (origin.GetPointX() == point.GetPointX()) && (point.GetPointY() > origin.GetPointY())  ) {
+
+                    ++numbers_of_point;
+                    if(  (numbers_of_point > 1) && (length_to_point > (point.GetPointY() - origin.GetPointY()))  )
+                    {
+                            length_to_point = point.GetPointY() - origin.GetPointY();
+                             destination = point;
+
+                    } else {
+
+                        length_to_point = point.GetPointY() - origin.GetPointY();
+                         destination = point;
+                    }
+
+                }
+            }
+        }
+     }
         }break;
     }
 }

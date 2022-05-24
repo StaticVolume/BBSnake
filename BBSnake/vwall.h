@@ -12,10 +12,11 @@ class Vwall : public NonActiveFigure{
     unsigned int last_y;
     unsigned int w_x;
     char w_style;
+    Color color;
 
 public:
 
-    Vwall(unsigned int in_start_y, unsigned int in_last_y, unsigned int in_w_x, char in_w_style = '#');
+    Vwall(unsigned int in_start_y, unsigned int in_last_y, unsigned int in_w_x, char in_w_style = '#', Color color = Color::WHITE);
     ~Vwall(){};
 };
 

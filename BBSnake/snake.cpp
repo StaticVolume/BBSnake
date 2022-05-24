@@ -38,7 +38,7 @@ void Snake::Move(const Direction& dir, unsigned int offset) {
     this->GetFigureList().pop_back();
     this->GetFigureList().push_back(old_head);
 
-    new_head.Move(dir, 1);
+    new_head.Move(dir, offset);
 
     head = new_head;
     this->GetFigureList().push_back(new_head);
@@ -48,34 +48,128 @@ void Snake::Move(const Direction& dir, unsigned int offset) {
 
 }
 
-void Snake::Move_Back__By_Hit(Direction &dir) {
+
+
+void Snake::DontMove() {
+
+}
+
+void Snake::Feed(){
+       GetFigureList().push_back(GetFigureList().back());
+
+}
+
+void Snake::Move_Back__By_Hit(Direction &dir, Display& d, unsigned int offcet) {
+
+std::list<Point> List;
 
         switch (dir){
 
-        case Direction::RIGTH :
+        case Direction::RIGTH : {
 
-            Move(Direction::LEFT, 1);
+            for (auto& p : GetFigureList()){
+                    Point new_p(p);
+                    new_p.Move(Direction::LEFT,offcet);
+                    List.push_back(new_p);
+                    p.Delete();
+                    d.DrawPoint(p);
+
+            }
+            GetFigureList().clear();
+            for (auto& p : List) {
+                    Point new_p(p);
+                    GetFigureList().push_back(new_p);
+                    p.Delete();
+                    d.DrawPoint(p);
+                    d.DrawPoint(new_p);
+                    head = GetFigureList().back();
+            }
+            List.clear();
+         }
 
                 break;
 
-        case Direction::LEFT :
+        case Direction::LEFT : {
 
-            Move(Direction::RIGTH, 1);
+            for (auto& p : GetFigureList()){
+                    Point new_p(p);
+                    new_p.Move(Direction::RIGTH,offcet);
+                    List.push_back(new_p);
+                    p.Delete();
+                    d.DrawPoint(p);
+
+            }
+            GetFigureList().clear();
+            for (auto& p : List) {
+                    Point new_p(p);
+                    GetFigureList().push_back(new_p);
+                    p.Delete();
+                    d.DrawPoint(p);
+                    d.DrawPoint(new_p);
+                    head = GetFigureList().back();
+            }
+            List.clear();
+         }
+
 
                 break;
 
-        case Direction::UP :
+        case Direction::UP : {
 
-            Move(Direction::DOWN, 1);
+            for (auto& p : GetFigureList()){
+                    Point new_p(p);
+                    new_p.Move(Direction::DOWN,offcet);
+                    List.push_back(new_p);
+                    p.Delete();
+                    d.DrawPoint(p);
+
+            }
+            GetFigureList().clear();
+            for (auto& p : List) {
+                    Point new_p(p);
+                    GetFigureList().push_back(new_p);
+                    p.Delete();
+                    d.DrawPoint(p);
+                    d.DrawPoint(new_p);
+                    head = GetFigureList().back();
+            }
+            List.clear();
+         }
+
 
                 break;
 
-        case Direction::DOWN :
+        case Direction::DOWN : {
 
-            Move(Direction::UP, 1);
+
+            for (auto& p : GetFigureList()){
+                    Point new_p(p);
+                    new_p.Move(Direction::UP,offcet);
+                    List.push_back(new_p);
+                    p.Delete();
+                    d.DrawPoint(p);
+
+            }
+            GetFigureList().clear();
+            for (auto& p : List) {
+                    Point new_p(p);
+                    GetFigureList().push_back(new_p);
+                    p.Delete();
+                    d.DrawPoint(p);
+                    d.DrawPoint(new_p);
+                    head = GetFigureList().back();
+            }
+            List.clear();
+         }
+
 
                 break;
         }
+
+        GetTraceLine().SetOrigin(head);
+        GetTraceLine().CalculateTraceLineWhithDirection(GetTraceLine().GetOrigin(),dir);
+
+
 }
 
 

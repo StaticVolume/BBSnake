@@ -1,10 +1,12 @@
 #include "eat.h"
 
 
-Eat::Eat(int in_x, int in_y, char in_style){
-    food.SetPointX(in_x);
-    food.SetPointY(in_y);
-    food.SetPointStyle(in_style);
+Eat::Eat(unsigned int w_width, unsigned int w_heigth,char in_style, Color in_color){
+    food  = new Point ( (2 + rand() % (50)), (2 + rand() % (10)), in_style, in_color);;
+    GetFigureList().push_back(*food);
 }
 
-Eat::Eat(Point& in_food):food{in_food}{}
+void Eat::SetFood(Point& point) {
+
+    food = new Point(point);
+}

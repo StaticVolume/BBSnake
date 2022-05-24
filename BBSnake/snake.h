@@ -8,6 +8,7 @@
 #include "traceline.h"
 #include "color.h"
 #include "active_figure.h"
+#include "eat.h"
 
 class Snake: public ActiveFigure{
 
@@ -21,16 +22,17 @@ private:
 
 public:
 
-    Snake(const Point& start, unsigned int length, const Direction& dir, char head_style = '@', char body_style= '*', Color body_color = Color::YELLOW,
-    Color head_color = Color::GREEN);
+    Snake(const Point& start, unsigned int length, const Direction& dir, char head_style = '@', char body_style= '*', Color body_color = Color::CYAN,
+    Color head_color = Color::RED);
 
     Point& GetHead() { return head; };
     Point& GetStart() { return start; };
     void Move(const Direction& dir, unsigned int offset);
-    void Eat(ANContainer& figurs, bool is_interactive = true);
+    void DontMove();
+    void Feed();
     void ClearAfterMove();
     void ClearAfterMoveTraceLine(Display& d);
-    void Move_Back__By_Hit(Direction &dir);
+    void Move_Back__By_Hit(Direction &dir, Display& d, unsigned int offcet = 2);
 
 
 

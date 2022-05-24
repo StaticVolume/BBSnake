@@ -12,6 +12,9 @@
 #include <chrono>
 #include <thread>
 #include <string.h>
+#include "eat.h"
+#include "enemy.h"
+
 using namespace std;
 
 int main(void)
@@ -27,14 +30,39 @@ int main(void)
     Vwall wall4(0,display.GetDisplayHeigth()-1,display.GetDisplayWidth()-1,'#');
     Vwall wall5(0,20,200,'#');
 
+    Snake snake(Point(1,10),4,Direction::RIGTH,'*','*');
+
+
+    Eat** p_eat = nullptr;
+    Eat* eat = new Eat(50, 20);
+    p_eat = &eat;
+
+    Enemy en('@',Color::RED);
+
+
     display.DrawFigure(wall1);
     display.DrawFigure(wall2);
     display.DrawFigure(wall3);
     display.DrawFigure(wall4);
     display.DrawFigure(wall5);
 
-    Snake snake(Point(1,10),10,Direction::RIGTH,'*','*');
+
+
+    display.DrawFigure( **p_eat );
+
+    display.DrawFigure(en);
+
+    /*for (auto& F : en.GetCarcas()) {
+          display.DrawFigure(F);
+     }*/
+
+
+
     display.DrawFigure(snake);
+
+
+
+
 
     while(true){
 
@@ -55,13 +83,28 @@ int main(void)
      bool ishit = snake.IsHitByPoints( snake.GetTraceLine().GetOrigin(), snake.GetTraceLine().GetDestination(), dir ) ;
 
         if(ishit) {
-            for(int x = 0 ; x < snake.GetFigureList().size(); ++x){
-                snake.Move_Back__By_Hit(dir);
-                snake.GetTraceLine().BuildTrace();
-                display.DrawFigure(snake.GetTrace());
-                display.DrawFigure(snake);
-                snake.ClearAfterMove();
-            }
+
+            bool is_eat = false;
+
+                for(auto& p : (*p_eat)->GetFigureList()) {
+                   if (p == snake.GetTraceLine().GetDestination()) {
+                       is_eat = true;
+                       p.Delete();
+                       (*p_eat)->GetFigureList().clear();
+                        break;
+                    }
+                }
+                if (is_eat) {
+                    snake.Feed(); 
+                    (*p_eat)->Eat::~Eat();
+                     p_eat= nullptr;
+                     Eat* new_eat = new Eat(50, 20);
+                     p_eat = &new_eat;
+                    display.DrawFigure(**p_eat);
+                }else{
+                    // snake.DontMove();
+                    snake.Move_Back__By_Hit(dir, display, 1);
+                }
 
         } else {
             snake.Move(dir, 1);
