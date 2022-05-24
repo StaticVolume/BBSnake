@@ -42,6 +42,7 @@ bool Figure::IsHit(Figure& in_figure) {
      return false;
 }
 
+
 void Figure::SetId() {
     ++id_all_figures;
 }

@@ -19,5 +19,7 @@ public:
     Traceline& GetTraceLine() { return trace; }
     Figure& GetTrace() { return trace; }
     bool IsHitByPoints(const Point& origin, const  Point& destination, Direction& dir)const;
-};
 
+    bool IsHitMySelfe(const  Point& destination) ;
+
+};

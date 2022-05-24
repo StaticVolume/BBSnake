@@ -29,7 +29,7 @@ public:
     Point& GetStart() { return start; };
     void Move(const Direction& dir, unsigned int offset);
     void DontMove();
-    void Feed();
+    void Feed(const Direction& dir);
     void ClearAfterMove();
     void ClearAfterMoveTraceLine(Display& d);
     void Move_Back__By_Hit(Direction &dir, Display& d, unsigned int offcet = 2);

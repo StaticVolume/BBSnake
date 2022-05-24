@@ -23,3 +23,13 @@ bool ActiveFigure::IsHitByPoints(const Point& origin, const Point& destination, 
     return is_hit;
 }
 
+bool ActiveFigure::IsHitMySelfe(const  Point& destination)  {
+    bool hit_my_self = false;
+    for (auto p : GetFigureList()) {
+        if (p == destination) {
+            hit_my_self = true;
+            break;
+        }
+    }
+    return hit_my_self;
+}

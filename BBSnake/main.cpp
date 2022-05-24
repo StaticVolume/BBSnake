@@ -14,6 +14,10 @@
 #include <string.h>
 #include "eat.h"
 #include "enemy.h"
+#include <chrono>
+#include <time.h>
+
+#define MS_TO_FRAME 16
 
 using namespace std;
 
@@ -37,7 +41,7 @@ int main(void)
     Eat* eat = new Eat(50, 20);
     p_eat = &eat;
 
-    Enemy en('@',Color::RED);
+    //Enemy en('@',Color::RED);
 
 
     display.DrawFigure(wall1);
@@ -47,10 +51,10 @@ int main(void)
     display.DrawFigure(wall5);
 
 
-
+  //  display.DrawFigure(en);
     display.DrawFigure( **p_eat );
 
-    display.DrawFigure(en);
+
 
     /*for (auto& F : en.GetCarcas()) {
           display.DrawFigure(F);
@@ -65,6 +69,7 @@ int main(void)
 
 
     while(true){
+
 
         switch (getch()) {
             case 'd': dir = Direction::RIGTH;
@@ -81,6 +86,9 @@ int main(void)
      snake.ClearAfterMoveTraceLine(display);
      snake.GetTraceLine().CalculateTraceLineWhithDirection(snake.GetTraceLine().GetOrigin(), dir);
      bool ishit = snake.IsHitByPoints( snake.GetTraceLine().GetOrigin(), snake.GetTraceLine().GetDestination(), dir ) ;
+     bool hit_my_self = snake.IsHitMySelfe(snake.GetTraceLine().GetDestination());
+
+
 
         if(ishit) {
 
@@ -95,30 +103,34 @@ int main(void)
                     }
                 }
                 if (is_eat) {
-                    snake.Feed(); 
+
+                    snake.Feed(dir);
                     (*p_eat)->Eat::~Eat();
                      p_eat= nullptr;
                      Eat* new_eat = new Eat(50, 20);
                      p_eat = &new_eat;
                     display.DrawFigure(**p_eat);
-                }else{
-                    // snake.DontMove();
+
+                } else if (hit_my_self) {
+
+                     snake.DontMove();
+
+                } else {
+
                     snake.Move_Back__By_Hit(dir, display, 1);
                 }
 
         } else {
+
             snake.Move(dir, 1);
             snake.GetTraceLine().BuildTrace();
-            display.DrawFigure(snake.GetTrace());
             display.DrawFigure(snake);
+            display.DrawFigure(snake.GetTrace());
             snake.ClearAfterMove();
 
         }
 
-
-
-
-
+      std::this_thread::sleep_for(std::chrono::milliseconds(MS_TO_FRAME));
   }
 
     display.Stop(getch());

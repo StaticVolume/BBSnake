@@ -38,13 +38,13 @@ void Snake::Move(const Direction& dir, unsigned int offset) {
     this->GetFigureList().pop_back();
     this->GetFigureList().push_back(old_head);
 
-    new_head.Move(dir, offset);
+    new_head.Move( dir, offset );
 
     head = new_head;
     this->GetFigureList().push_back(new_head);
 
     GetTraceLine().SetOrigin(head);
-    GetTraceLine().CalculateTraceLineWhithDirection(GetTraceLine().GetOrigin(),dir);
+    GetTraceLine().CalculateTraceLineWhithDirection( GetTraceLine().GetOrigin(), dir );
 
 }
 
@@ -54,9 +54,29 @@ void Snake::DontMove() {
 
 }
 
-void Snake::Feed(){
-       GetFigureList().push_back(GetFigureList().back());
+void Snake::Feed(const Direction& dir) {
 
+    Point old_head(this->GetFigureList().back());
+    Point new_head(this->GetFigureList().back());
+
+    old_head.SetPointStyle(body_style);
+    old_head.SetPointColor(body_color);
+
+    this->GetFigureList().pop_back();
+    this->GetFigureList().push_back(old_head);
+
+
+    new_head.Move( dir, 1 );
+
+
+    head = new_head;
+    this->GetFigureList().push_back(new_head);
+
+
+    GetFigureList().push_back(head);
+
+    GetTraceLine().SetOrigin(head);
+    GetTraceLine().CalculateTraceLineWhithDirection( GetTraceLine().GetOrigin(), dir );
 }
 
 void Snake::Move_Back__By_Hit(Direction &dir, Display& d, unsigned int offcet) {
